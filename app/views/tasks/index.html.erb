@@ -1,5 +1,9 @@
+<h1>Tasks#index</h1>
 <ul>
   <% @tasks.each do |task| %>
   <li><%= task.name %> <%= task.deadline.strftime("%Y/%m/%d-%H:%M:%S") %></li>
   <% end %>
 </ul>
+<div>
+  <%= link_to('create task', new_task_path) %>
+</div>
