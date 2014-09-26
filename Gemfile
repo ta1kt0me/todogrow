@@ -38,3 +38,9 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem 'haml-rails'
+gem 'erb2haml', group: :development
+gem 'twitter-bootstrap-rails'
+gem 'therubyracer'
+gem 'twitter-bootswatch-rails'
+gem 'twitter-bootswatch-rails-helpers'
