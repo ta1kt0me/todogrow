@@ -1,10 +1,11 @@
 - now = Time.zone.now
-%h1 Tasks#new
+%div.page-header
+  %h1 Tasks#new
 = form_for(@task) do |t|
-  %div
+  %div.form-group
     = t.label :name
-    = t.text_field :name
-  %div
+    = t.text_field :name, class: 'form-control'
+  %div.form-group
     = t.label :deadline
     = t.datetime_select :deadline, start_year: now.year, end_year: now.year+1
-  = t.submit 'create'
+  = t.submit 'create', class: 'btn btn-default'

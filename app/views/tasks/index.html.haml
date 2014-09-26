@@ -1,8 +1,12 @@
-%h1 Tasks#index
-%ul
-  - @tasks.each do |task|
-    %li
-      = task.name
-      = task.deadline.strftime("%Y/%m/%d-%H:%M:%S")
+%div.page-header
+  %h1 Tasks#index
 %div
-  = link_to('create task', new_task_path)
+  = link_to('create task', new_task_path, class: 'btn btn-info btn-lg btn-block')
+%div.list-group
+  - @tasks.each do |task|
+    %div.list-group-item
+      %h4.list-group-item-heading
+        = task.name
+      %p.list-group-item-text
+        = task.deadline.strftime("%Y/%m/%d-%H:%M:%S")
+
