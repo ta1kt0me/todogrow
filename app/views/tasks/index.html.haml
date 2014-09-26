@@ -1,0 +1,8 @@
+%h1 Tasks#index
+%ul
+  - @tasks.each do |task|
+    %li
+      = task.name
+      = task.deadline.strftime("%Y/%m/%d-%H:%M:%S")
+%div
+  = link_to('create task', new_task_path)

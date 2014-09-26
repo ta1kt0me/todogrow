@@ -1,0 +1,10 @@
+- now = Time.zone.now
+%h1 Tasks#new
+= form_for(@task) do |t|
+  %div
+    = t.label :name
+    = t.text_field :name
+  %div
+    = t.label :deadline
+    = t.datetime_select :deadline, start_year: now.year, end_year: now.year+1
+  = t.submit 'create'
