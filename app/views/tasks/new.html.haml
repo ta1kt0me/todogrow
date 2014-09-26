@@ -9,3 +9,6 @@
     = t.label :deadline
     = t.text_field :deadline, id: 'datetimepicker', class: 'form-control'
   = t.submit 'create', class: 'btn btn-default'
+- content_for :page_javascript do
+  :javascript
+    jQuery('#datetimepicker').datetimepicker();
