@@ -10,6 +10,7 @@
     /[if lt IE 9]
       = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
     = stylesheet_link_tag "yeti", :media => "all"
+    = stylesheet_link_tag "datetimepicker",  :media => "all"
     = yield(:page_stylesheet) if content_for?(:page_stylesheet)
 
 
@@ -26,4 +27,8 @@
       \==================================================
     / Placed at the end of the document so the pages load faster
     = javascript_include_tag "yeti"
+    = javascript_include_tag "datetimepicker"
     = yield(:page_javascript) if content_for?(:page_javascript)
+
+:javascript
+  jQuery('#datetimepicker').datetimepicker();
