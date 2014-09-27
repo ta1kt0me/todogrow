@@ -3,6 +3,10 @@ class TasksController < ApplicationController
     @tasks = Task.order(:deadline)
   end
 
+  def closed_index
+    @tasks = Task.where(is_done: true).order('updated_at DESC')
+  end
+
   def new
     @task = Task.new
   end
