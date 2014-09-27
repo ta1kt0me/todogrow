@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.order(:deadline)
+    @tasks = Task.where(is_done: false).order(:deadline)
   end
 
   def closed_index
