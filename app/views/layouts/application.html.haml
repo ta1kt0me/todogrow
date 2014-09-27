@@ -17,7 +17,20 @@
     %header.navbar.navbar-default{role: "navigation"}
       %div.container
         %div.navbar-header
+          %button.navbar-toggle{data: {toggle: 'collapse', target:'.navbar-responsive-collapse'}}
+            %span.sr-only
+              test1
+            %span.icon-bar
+              test2
+            %span.icon-bar
+              test3
           = link_to 'TodoGrow', root_path, class: 'navbar-brand'
+        %div.navbar-collapse.collapse.navbar-responsive-collapse
+          %ul.nav.navbar-nav
+            %li
+              = link_to 'MyTask', tasks_path
+            %li
+              = link_to 'Archive', closed_tasks_path
     %div.container
       = yield
 
