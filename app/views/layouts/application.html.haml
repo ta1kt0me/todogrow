@@ -32,6 +32,12 @@
             %li
               = link_to 'Archive', closed_tasks_path
     %div.container
+      - if flash[:notice]
+        %div.alert.alert-success
+          = flash[:notice]
+      - if flash[:error]
+        %div.alert.alert-danger
+          = flash[:error]
       = yield
 
     /
