@@ -5,8 +5,9 @@
 %div.list-group
   - @tasks.each do |task|
     %div.list-group-item
-      %h4.list-group-item-heading
+      %span.list-group-item-heading.lead
         = task.name
+        = link_to 'Done', close_task_path(task), class: 'btn btn-danger btn-s pull-right', method: 'close'
       %p.list-group-item-text
         = task.deadline.strftime("%Y/%m/%d-%H:%M:%S")
 

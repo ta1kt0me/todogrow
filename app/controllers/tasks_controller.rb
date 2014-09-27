@@ -16,6 +16,15 @@ class TasksController < ApplicationController
     end
   end
 
+  def close
+    @task = Task.find(params[:id])
+    if @task.update(is_done: true)
+      redirect_to :root
+    else
+      render :root
+    end
+  end
+
   private
   def task_params
     params.require(:task).permit(
