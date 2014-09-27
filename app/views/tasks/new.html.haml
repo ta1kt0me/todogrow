@@ -3,11 +3,20 @@
   %h1 Tasks#new
 
 = form_for(@task) do |t|
-  %div.form-group
-    = t.label :name
+  - if @task.errors.any?
+    %div.alert.alert-danger
+      %ul
+        - @task.errors.full_messages.each do |msg|
+          %li
+            = msg
+
+  %div.form-group.required
+    = t.label :name, class: 'control-label'
+    %span.control-label
+      ( required )
     = t.text_field :name, class: 'form-control'
   %div.form-group
-    = t.label :deadline
+    = t.label :deadline, class: 'control-label'
     = t.text_field :deadline, id: 'datetimepicker', class: 'form-control', autocomplete: 'off'
   = t.submit 'create', class: 'btn btn-default'
 
