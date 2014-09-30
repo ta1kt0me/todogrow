@@ -1,20 +1,28 @@
 %div.page-header
   %h1 Tasks#index
 %div
-  %button.btn.btn-info.btn-lg.btn-block{data: {toggle: 'modal', target: '#task-modal'}}
+  %button.btn.btn-default.btn-lg.btn-block{data: {toggle: 'modal', target: '#task-modal'}}
     Create New Task
+%hr
 
 %div.list-group
   - @tasks.each do |task|
-    %div.list-group-item
-      %span.list-group-item-heading.lead
-        = task.name
-        = link_to 'Done', close_task_path(task), class: 'btn btn-danger btn-s pull-right', method: 'close'
-      %p.list-group-item-text
-        - if task.deadline
-          = task.deadline.strftime("%Y/%m/%d-%H:%M")
-        - else
-          no limit
+    %div.panel.panel-info
+      %div.panel-heading
+        %h3.panel-title
+          = task.name
+          = link_to 'Edit', close_task_path(task), class: 'pull-right', method: 'close'
+      %div.panel-body
+        %ul
+          %li
+            limit
+            %ul
+              %li
+                - if task.deadline
+                  = task.deadline.strftime("%Y/%m/%d %H:%M")
+                - else
+                  no limit
+        = link_to 'Done', close_task_path(task), class: 'btn btn-danger btn-md btn-block', method: 'close'
 
 %div.modal#task-modal
   %div.modal-dialog
