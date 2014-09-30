@@ -1,7 +1,9 @@
 %div.page-header
   %h1 Tasks#index
 %div
-  = link_to('create task', new_task_path, class: 'btn btn-info btn-lg btn-block')
+  %button.btn.btn-info.btn-lg.btn-block{data: {toggle: 'modal', target: '#task-modal'}}
+    Create New Task
+
 %div.list-group
   - @tasks.each do |task|
     %div.list-group-item
@@ -14,3 +16,41 @@
         - else
           no limit
 
+%div.modal#task-modal
+  %div.modal-dialog
+    %div.modal-content
+      %div.modal-header
+        %button.close{type:'button', data: {dismiss: 'modal'}}
+          X
+        %h4.modal-title
+          New Task
+      = form_for(@task, url: tasks_path, remote: true) do |t|
+        %div.modal-body
+          / エラーメッセージの追加方法
+          / - if @task.errors.any?
+          /   %div.alert.alert-danger
+          /     %ul
+          /       - @task.errors.full_messages.each do |msg|
+          /         %li
+          /           = msg
+
+          %div.form-group.required
+            = t.label :name, class: 'control-label'
+            %span.control-label
+              ( required )
+            = t.text_field :name, class: 'form-control'
+          %div.form-group
+            = t.label :deadline, class: 'control-label'
+            = t.text_field :deadline, id: 'datetimepicker', class: 'form-control', autocomplete: 'off'
+          / = t.submit 'create', class: 'btn btn-lg btn-block'
+
+        %div.modal-footer
+          = t.submit 'Save', class: 'btn btn-lg btn-block btn-primary'
+          / %button.btn.btn-lg.btn-block.btn-primary{type: 'button'}
+          /   Save
+
+- content_for :page_javascript do
+  = javascript_include_tag "datetimepicker"
+  = stylesheet_link_tag "datetimepicker",  :media => "all"
+  :javascript
+    jQuery('#datetimepicker').datetimepicker();
