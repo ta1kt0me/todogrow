@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
   def index
     @tasks = Task.where(is_done: false).order(:deadline)
+    @task = Task.new
   end
 
   def closed_index
@@ -14,9 +15,11 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      redirect_to :root
+      flash[:notice] = 'タスクを作成しました'
+      # redirect_to :root
+      head 201
     else
-      render :new
+      render json: {messages: @task.errors.full_messages}, status: 422
     end
   end
 
