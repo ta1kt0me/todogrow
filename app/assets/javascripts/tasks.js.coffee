@@ -9,11 +9,11 @@ $(document).on 'ajax:error', '#task-modal', (xhr, data, status) ->
 
 $('a[id^="edit-task-"]').on 'ajax:success', (xhr, data, status) ->
   initModal()
-  console.log data
   $('#task-modal #task-id')[0].value        = data.id
   $('#task-modal #task-name')[0].value      = data.name
+
   # TODO deadlineのフォーマット
-  $('#task-modal #datetimepicker')[0].value = if data.deadline? then data.deadline else ''
+  $('#task-modal #datetimepicker')[0].value = if data.deadline? then moment().format('YYYY/MM/DD hh:mm', data.deadline) else ''
 
   # execute update
   $('form').attr('action','/tasks/' + data.id)
@@ -30,7 +30,6 @@ $('#create-new-task').on click:->
   $('form').attr('method','POST')
 
 $('a[id^="edit-task-"]').on click:->
-  console.log $('form')
   $('form').attr('path')
 
 modalError = (data)->
