@@ -12,8 +12,7 @@
         %h3.panel-title
           %span.task-list-name
             = task.name
-          / %span.pull-right.fa.fa-pencil{id: "edit-task-#{task.id}", data: {toggle: 'modal', target: '#task-modal'}, remote: true}
-          = link_to '', edit_task_path(task.id), id: "edit-task-#{task.id}", class: 'pull-right fa fa-pencil', 'data-toggle' => 'modal', 'data-target' => '#task-modal', remote: true
+          = link_to '', edit_task_path(task.id), id: "edit-task-#{task.id}", class: 'pull-right fa fa-pencil-square-o', 'data-toggle' => 'modal', 'data-target' => '#task-modal', remote: true
       %div.panel-body
         %ul
           %li
