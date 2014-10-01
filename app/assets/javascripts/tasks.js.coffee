@@ -22,6 +22,24 @@ $('a[id^="edit-task-"]').on 'ajax:success', (xhr, data, status) ->
 $('a[id^="edit-task-"]').on 'ajax:error', (xhr, data, status) ->
   modalError(data)
 
+$('a[id^="close-task-"]').on 'ajax:success', (xhr, data, status) ->
+  $("div.panel.panel-info#task-#{data.id}").remove()
+
+$('a[id^="close-task-"]').on 'ajax:error', (xhr, data, status) ->
+  console.log 'close!!!'
+  console.log data
+  $divAlert = $('<div id="close-task-errors" class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>')
+  $div  = $('<div></div>')
+  data.responseJSON.messages.forEach (message, i) ->
+    $p = $('<p></p>').text(message)
+    $div.append($p)
+
+  if $('#close-task-errors')[0]
+    $('#close-task-errors').html(ul)
+  else
+    $divAlert.append($div)
+    $('div#main-content').prepend($divAlert)
+
 $('#create-new-task').on click:->
   initModal()
 
@@ -39,7 +57,6 @@ modalError = (data)->
   data.responseJSON.messages.forEach (message, i) ->
     li = $('<li></li>').text(message)
     ul.append(li)
-
   if $('#create-task-errors')[0]
     $('#create-task-errors').html(ul)
   else

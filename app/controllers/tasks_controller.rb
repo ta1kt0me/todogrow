@@ -17,7 +17,6 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     if @task.save
       flash[:notice] = 'タスクを作成しました'
-      # redirect_to :root
       head 201
     else
       render json: {messages: @task.errors.full_messages}, status: 422
@@ -46,9 +45,9 @@ class TasksController < ApplicationController
   def close
     @task = Task.find(params[:id])
     if @task.update(is_done: true)
-      redirect_to :root
+      render json: @task
     else
-      render :root
+      render json: {messages: @task.errors.full_messages}, status: 422
     end
   end
 

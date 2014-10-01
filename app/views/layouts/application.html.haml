@@ -27,7 +27,7 @@
               = link_to 'My Task', tasks_path
             %li
               = link_to 'Archive', closed_tasks_path
-    %div.container
+    %div.container#main-content
       - if flash[:notice]
         %div.alert.alert-success
           = flash[:notice]
