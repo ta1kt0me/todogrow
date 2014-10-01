@@ -1,7 +1,7 @@
 %div.page-header
   %h1 Tasks#index
 %div
-  %button.btn.btn-default.btn-lg.btn-block{data: {toggle: 'modal', target: '#task-modal'}}
+  %button#create-new-task.btn.btn-default.btn-lg.btn-block{data: {toggle: 'modal', target: '#task-modal'}}
     Create New Task
 %hr
 
@@ -38,7 +38,7 @@
             = t.label :name, class: 'control-label'
             %span.control-label
               ( required )
-            = t.text_field :name, class: 'form-control'
+            = t.text_field :name, class: 'form-control', id: 'task-name'
           %div.form-group
             = t.label :deadline, class: 'control-label'
             = t.text_field :deadline, id: 'datetimepicker', class: 'form-control', autocomplete: 'off', 'data-date-format' => "YYYY/MM/DD HH:mm"
