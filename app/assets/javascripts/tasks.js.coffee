@@ -17,3 +17,9 @@ $(document).on 'ajax:error', '#task-modal', (xhr, data, status) ->
   else
     div.append(ul)
     form.prepend(div)
+
+$('#create-new-task').on click:->
+  $('#task-name')[0].value = ''
+  $('#datetimepicker')[0].value = ''
+
+
