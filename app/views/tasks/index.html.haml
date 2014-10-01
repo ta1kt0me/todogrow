@@ -11,7 +11,7 @@
       %div.panel-heading
         %h3.panel-title
           = task.name
-          = link_to 'Edit', close_task_path(task), class: 'pull-right', method: 'close'
+          = link_to '', close_task_path(task), class: 'pull-right fa fa-pencil', method: 'close'
       %div.panel-body
         %ul
           %li
@@ -41,12 +41,21 @@
             = t.text_field :name, class: 'form-control'
           %div.form-group
             = t.label :deadline, class: 'control-label'
-            = t.text_field :deadline, id: 'datetimepicker', class: 'form-control', autocomplete: 'off'
+            = t.text_field :deadline, id: 'datetimepicker', class: 'form-control', autocomplete: 'off', 'data-date-format' => "YYYY/MM/DD HH:mm"
         %div.modal-footer
           = t.submit 'Save', class: 'btn btn-lg btn-block btn-primary'
 
 - content_for :page_javascript do
-  = javascript_include_tag "datetimepicker"
-  = stylesheet_link_tag "datetimepicker",  :media => "all"
   :javascript
-    jQuery('#datetimepicker').datetimepicker();
+    $(function () {
+      $('#datetimepicker').datetimepicker({
+                icons: {
+                    format: 'yyyy-mm-dd hh:ii',
+                    language: 'ja',
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-arrow-up",
+                    down: "fa fa-arrow-down"
+                }
+            });
+    });
