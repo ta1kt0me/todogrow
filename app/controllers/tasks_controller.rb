@@ -23,6 +23,25 @@ class TasksController < ApplicationController
     end
   end
 
+  def edit
+    @task = Task.find(params[:id])
+    if @task
+      render json: @task
+    else
+      render json: {messages: @task.errors.full_messages}, status: 422
+    end
+  end
+
+  def update
+    @task = Task.find(params[:id])
+    if @task.update(task_params)
+      flash[:notice] = 'タスクを更新しました'
+      head 201
+    else
+      render json: {messages: @task.errors.full_messages}, status: 422
+    end
+  end
+
   def close
     @task = Task.find(params[:id])
     if @task.update(is_done: true)
