@@ -1,0 +1,21 @@
+%div.modal#task-modal
+  %div.modal-dialog
+    %div.modal-content
+      %div.modal-header
+        %button.close{type:'button', data: {dismiss: 'modal'}}
+          X
+        %h4.modal-title
+          New Task
+      = form_for(@task, remote: true, id: 'task-form') do |t|
+        %div.modal-body
+          %div.form-group.required
+            = t.label :name, class: 'control-label'
+            %span.control-label
+              ( required )
+            = t.text_field :name, class: 'form-control', id: 'task-name'
+          %div.form-group
+            = t.label :deadline, class: 'control-label'
+            = t.text_field :deadline, id: 'datetimepicker', class: 'form-control', autocomplete: 'off', 'data-date-format' => "YYYY/MM/DD HH:mm"
+            = t.hidden_field :id, id: 'task-id'
+        %div.modal-footer
+          = t.submit nil, class: 'btn btn-lg btn-block btn-primary'

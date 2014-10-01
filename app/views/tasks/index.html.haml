@@ -1,44 +1,43 @@
 %div.page-header
   %h1 Tasks#index
 %div
-  %button.btn.btn-info.btn-lg.btn-block{data: {toggle: 'modal', target: '#task-modal'}}
+  %button#create-new-task.btn.btn-default.btn-lg.btn-block{data: {toggle: 'modal', target: '#task-modal'}}
     Create New Task
+%hr
 
 %div.list-group
   - @tasks.each do |task|
-    %div.list-group-item
-      %span.list-group-item-heading.lead
-        = task.name
-        = link_to 'Done', close_task_path(task), class: 'btn btn-danger btn-s pull-right', method: 'close'
-      %p.list-group-item-text
-        - if task.deadline
-          = task.deadline.strftime("%Y/%m/%d-%H:%M")
-        - else
-          no limit
+    %div.panel.panel-info{id: "task-#{task.id}"}
+      %div.panel-heading
+        %h3.panel-title
+          %span.task-list-name
+            = task.name
+          = link_to '', edit_task_path(task.id), id: "edit-task-#{task.id}", class: 'pull-right fa fa-pencil-square-o', 'data-toggle' => 'modal', 'data-target' => '#task-modal', remote: true
+      %div.panel-body
+        %ul
+          %li
+            limit
+            %ul
+              %li.task-list-deadline
+                - if task.deadline
+                  = task.deadline.strftime("%Y/%m/%d %H:%M")
+                - else
+                  no limit
+        = link_to 'Done', close_task_path(task), class: 'btn btn-danger btn-md btn-block', method: 'close'
 
-%div.modal#task-modal
-  %div.modal-dialog
-    %div.modal-content
-      %div.modal-header
-        %button.close{type:'button', data: {dismiss: 'modal'}}
-          X
-        %h4.modal-title
-          New Task
-      = form_for(@task, url: tasks_path, remote: true) do |t|
-        %div.modal-body
-          %div.form-group.required
-            = t.label :name, class: 'control-label'
-            %span.control-label
-              ( required )
-            = t.text_field :name, class: 'form-control'
-          %div.form-group
-            = t.label :deadline, class: 'control-label'
-            = t.text_field :deadline, id: 'datetimepicker', class: 'form-control', autocomplete: 'off'
-        %div.modal-footer
-          = t.submit 'Save', class: 'btn btn-lg btn-block btn-primary'
+= render partial: "form", locals: {zone: @zone}
 
 - content_for :page_javascript do
-  = javascript_include_tag "datetimepicker"
-  = stylesheet_link_tag "datetimepicker",  :media => "all"
   :javascript
-    jQuery('#datetimepicker').datetimepicker();
+    $(function () {
+      $('#datetimepicker').datetimepicker({
+                icons: {
+                    format: 'yyyy-mm-dd hh:ii',
+                    language: 'ja',
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-arrow-up",
+                    down: "fa fa-arrow-down"
+                }
+            });
+    });
