@@ -7,43 +7,26 @@
 
 %div.list-group
   - @tasks.each do |task|
-    %div.panel.panel-info
+    %div.panel.panel-info{id: "task-#{task.id}"}
       %div.panel-heading
         %h3.panel-title
-          = task.name
-          = link_to '', close_task_path(task), class: 'pull-right fa fa-pencil', method: 'close'
+          %span.task-list-name
+            = task.name
+          / %span.pull-right.fa.fa-pencil{id: "edit-task-#{task.id}", data: {toggle: 'modal', target: '#task-modal'}, remote: true}
+          = link_to '', edit_task_path(task.id), id: "edit-task-#{task.id}", class: 'pull-right fa fa-pencil', 'data-toggle' => 'modal', 'data-target' => '#task-modal', remote: true
       %div.panel-body
         %ul
           %li
             limit
             %ul
-              %li
+              %li.task-list-deadline
                 - if task.deadline
                   = task.deadline.strftime("%Y/%m/%d %H:%M")
                 - else
                   no limit
         = link_to 'Done', close_task_path(task), class: 'btn btn-danger btn-md btn-block', method: 'close'
 
-%div.modal#task-modal
-  %div.modal-dialog
-    %div.modal-content
-      %div.modal-header
-        %button.close{type:'button', data: {dismiss: 'modal'}}
-          X
-        %h4.modal-title
-          New Task
-      = form_for(@task, url: tasks_path, remote: true) do |t|
-        %div.modal-body
-          %div.form-group.required
-            = t.label :name, class: 'control-label'
-            %span.control-label
-              ( required )
-            = t.text_field :name, class: 'form-control', id: 'task-name'
-          %div.form-group
-            = t.label :deadline, class: 'control-label'
-            = t.text_field :deadline, id: 'datetimepicker', class: 'form-control', autocomplete: 'off', 'data-date-format' => "YYYY/MM/DD HH:mm"
-        %div.modal-footer
-          = t.submit 'Save', class: 'btn btn-lg btn-block btn-primary'
+= render partial: "form", locals: {zone: @zone}
 
 - content_for :page_javascript do
   :javascript
