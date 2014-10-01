@@ -1,7 +1,12 @@
 %div.page-header
-  %h1 Archive
+  %h1
+    Archive
 %div
-  = link_to('create task', new_task_path, class: 'btn btn-info btn-lg btn-block')
+  / = link_to('create task', new_task_path, class: 'btn btn-default btn-lg btn-block')
+  %button#create-new-task.btn.btn-default.btn-lg.btn-block{data: {toggle: 'modal', target: '#task-modal'}}
+    Create New Task
+%hr
+
 %div.list-group
   - @tasks.each do |task|
     %div.list-group-item
@@ -10,3 +15,20 @@
       %p.list-group-item-text
         = task.updated_at.strftime("%Y/%m/%d-%H:%M")
         done.
+
+= render partial: "form", locals: {zone: @zone}
+
+- content_for :page_javascript do
+  :javascript
+    $(function () {
+      $('#datetimepicker').datetimepicker({
+                icons: {
+                    format: 'yyyy-mm-dd hh:ii',
+                    language: 'ja',
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-arrow-up",
+                    down: "fa fa-arrow-down"
+                }
+            });
+    });

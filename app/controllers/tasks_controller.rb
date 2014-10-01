@@ -6,6 +6,7 @@ class TasksController < ApplicationController
 
   def closed_index
     @tasks = Task.where(is_done: true).order('updated_at DESC')
+    @task = Task.new
   end
 
   def new
