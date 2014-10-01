@@ -24,7 +24,7 @@
                   = task.deadline.strftime("%Y/%m/%d %H:%M")
                 - else
                   no limit
-        = link_to 'Done', close_task_path(task), class: 'btn btn-danger btn-md btn-block', method: 'close'
+        = link_to 'Done', close_task_path(task), class: 'btn btn-success btn-md btn-block', method: 'close'
 
 = render partial: "form", locals: {zone: @zone}
 
