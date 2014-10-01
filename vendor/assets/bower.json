@@ -1,6 +1,8 @@
 {
   "name": "dsl-generated dependencies",
   "dependencies": {
-    "datetimepicker": "latest"
+    "datetimepicker": "latest",
+    "bootstrap3-datetimepicker": "latest",
+    "moment": "latest"
   }
 }
