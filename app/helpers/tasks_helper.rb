@@ -1,14 +1,13 @@
 module TasksHelper
   def panel_class_status(task)
-    if task.deadline
-      sa = task.deadline.to_date - Date.today
-      case sa.to_f
-        when 4..Float::INFINITY then 'panel-primary'
-        when 1..3 then 'panel-warning'
-        else 'panel-danger'
-      end
-    else
-      'panel-info'
+    return 'panel-info' unless task.deadline
+
+    sa = task.deadline.to_time - Time.now
+
+    case sa.to_f / 3600
+    when 72..Float::INFINITY then 'panel-primary'
+    when 24..72 then 'panel-warning'
+    else 'panel-danger'
     end
   end
 end
