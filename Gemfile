@@ -48,3 +48,5 @@ gem 'bootswatch-rails'
 gem 'font-awesome-rails'
 gem 'twitter-bootswatch-rails-helpers'
 gem 'bower-rails'
+
+gem 'omniauth-twitter'
