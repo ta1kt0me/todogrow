@@ -37,9 +37,11 @@
     %div.container#main-content
       - if flash[:notice]
         %div.alert.alert-success
+          - alert_close_icon
           = flash[:notice]
       - if flash[:error]
         %div.alert.alert-danger
+          - alert_close_icon
           = flash[:error]
       - if current_user
         = yield
