@@ -19,7 +19,7 @@ class TasksController < ApplicationController
   def create
     @task = current_user.tasks.build(task_params)
     @task.user = current_user
-    current_user.tag(@task, :with => @task.tag_list.join(', '), :on => :tags)
+    current_user.tag(@task, with: @task.tag_list.join(', '), on: :tags)
     if @task.save
       flash[:notice] = 'タスクを作成しました'
       head 201
