@@ -1,11 +1,11 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.where(is_done: false, user_id: session[:user_id]).order(:deadline)
+    @tasks = Task.where(is_done: false, user: current_user).order(:deadline)
     @task = Task.new
   end
 
   def closed_index
-    @tasks = Task.where(is_done: true, user_id: session[:user_id]).order('updated_at DESC')
+    @tasks = Task.where(is_done: true, user: current_user).order('updated_at DESC')
     @task = Task.new
   end
 
@@ -15,7 +15,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-    @task.user_id = session[:user_id]
+    @task.user = current_user
     if @task.save
       flash[:notice] = 'タスクを作成しました'
       head 201
