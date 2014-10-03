@@ -7,6 +7,8 @@ $(document).on 'ajax:success', '#task-modal', (xhr, data, status) ->
 $(document).on 'ajax:error', '#task-modal', (xhr, data, status) ->
   modalError(data)
 
+$("[rel=tooltip]").tooltip();
+
 $('a[id^="edit-task-"]').on 'ajax:success', (xhr, data, status) ->
   initModal()
   $('#task-modal #task-id')[0].value        = data['task'].id
