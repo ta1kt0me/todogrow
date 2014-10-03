@@ -9,10 +9,10 @@ $(document).on 'ajax:error', '#task-modal', (xhr, data, status) ->
 
 $('a[id^="edit-task-"]').on 'ajax:success', (xhr, data, status) ->
   initModal()
-  $('#task-modal #task-id')[0].value        = data.id
-  $('#task-modal #task-name')[0].value      = data.name
+  console.log data
+  $('#task-modal #task-id')[0].value        = data['task'].id
+  $('#task-modal #task-name')[0].value      = data['task'].name
 
-  # TODO deadlineのフォーマット
   $('#task-modal #datetimepicker')[0].value = if data.deadline? then moment().format('YYYY/MM/DD hh:mm', data.deadline) else ''
 
   # execute update
@@ -79,7 +79,10 @@ initModal = ->
   $('#datetimepicker')[0].value = ''
   $('#create-task-errors').remove()
   $('#new-tag-text')[0].value = ''
-  $('#task-have_tags')[0].value = new Array()
+  $('div#enable-tag-list input[id^="tag-"]:checked').attr("checked", false)
+  $('div#enable-tag-list span.selected-tag').addClass('label-default').removeClass('selected-tag label-success')
+
+  # $('#task-have_tags')[0].value = new Array()
 
 addNewTag = ->
   newTagName = $('input#new-tag-text').val()
