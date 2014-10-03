@@ -19,8 +19,8 @@ class TasksController < ApplicationController
   def create
     @task = current_user.tasks.build(task_params)
     @task.user = current_user
-    current_user.tag(@task, with: @task.tag_list.join(', '), on: :tags)
-    if @task.save
+    if @task.save &&
+        current_user.tag(@task, with: @task.tag_list.join(', '), on: :tags)
       flash[:notice] = 'タスクを作成しました'
       head 201
     else
@@ -41,7 +41,8 @@ class TasksController < ApplicationController
   # TODO feature tag
   def update
     @task = Task.find(params[:id])
-    if @task.update(task_params)
+    if @task.update(task_params) &&
+        current_user.tag(@task, with: @task.tag_list.join(', '), on: :tags)
       flash[:notice] = 'タスクを更新しました'
       head 201
     else
