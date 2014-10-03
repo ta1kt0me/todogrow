@@ -17,5 +17,18 @@
             = t.label :deadline, class: 'control-label'
             = t.text_field :deadline, id: 'datetimepicker', class: 'form-control', autocomplete: 'off', 'data-date-format' => "YYYY/MM/DD HH:mm"
             = t.hidden_field :id, id: 'task-id'
+          %div.panel.panel-success.form-group
+            %div.panel-heading
+              = t.label :tag, class: 'control-label'
+            %div.panel-body#form-tags-list
+              %div{style: 'margin-bottom: 10px;'}
+                %input.form-control{id: 'new-tag-text',type: 'text', name:'new-tag', style: 'width:50%;display:inline;'}
+                %button.btn.btn-default{id: 'add-new-tag',type: 'button', data: {container: 'body', toggle: 'popover',placement: 'button'}}
+                  +
+              %div
+                - @tags.each do |tag|
+                  %span.label.label-default.fa.pull-left{style: 'margin-bottom:5px;'}
+                    = tag
+
         %div.modal-footer
           = t.submit nil, class: 'btn btn-lg btn-block btn-primary'
