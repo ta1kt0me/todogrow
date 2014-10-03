@@ -1,14 +1,15 @@
 class TasksController < ApplicationController
   def index
     @tasks = Task.where(is_done: false, user: current_user).order(:deadline)
-    @tags = current_user.owned_tag_list
     @task = Task.new
+    @user_tags = current_user.owned_tag_list
   end
 
+  # TODO feature tag
   def closed_index
     @tasks = Task.where(is_done: true, user: current_user).order('updated_at DESC')
-    @tags = current_user.owned_tag_list
     @task = Task.new
+    @user_tags = current_user.owned_tag_list
   end
 
   def new
@@ -16,8 +17,9 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     @task.user = current_user
+    current_user.tag(@task, :with => @task.tag_list.join(', '), :on => :tags)
     if @task.save
       flash[:notice] = 'タスクを作成しました'
       head 201
@@ -26,6 +28,7 @@ class TasksController < ApplicationController
     end
   end
 
+  # TODO feature tag
   def edit
     @task = Task.find(params[:id])
     if @task
@@ -35,6 +38,7 @@ class TasksController < ApplicationController
     end
   end
 
+  # TODO feature tag
   def update
     @task = Task.find(params[:id])
     if @task.update(task_params)
@@ -57,7 +61,7 @@ class TasksController < ApplicationController
   private
   def task_params
     params.require(:task).permit(
-      :name, :deadline
+      :id, :name, :deadline, tag_list: []
     )
   end
 end
