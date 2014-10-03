@@ -7,4 +7,10 @@ class User < ActiveRecord::Base
       user.name = auth['info']['nickname']
     end
   end
+
+  def owned_tag_list
+    self.owned_tags.map do |tag|
+      tag.name
+    end
+  end
 end
