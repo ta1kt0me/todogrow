@@ -23,7 +23,7 @@ $('a[id^="edit-task-"]').on 'ajax:error', (xhr, data, status) ->
   modalError(data)
 
 $('a[id^="close-task-"]').on 'ajax:success', (xhr, data, status) ->
-  $("div.panel.panel-info#task-#{data.id}").remove()
+  $("div#task-#{data.id}").remove()
 
 $('a[id^="close-task-"]').on 'ajax:error', (xhr, data, status) ->
   console.log 'close!!!'
