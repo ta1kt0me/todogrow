@@ -9,27 +9,25 @@ $(document).on 'ajax:error', '#task-modal', (xhr, data, status) ->
 
 $('a[id^="edit-task-"]').on 'ajax:success', (xhr, data, status) ->
   initModal()
-  $('#task-modal #task-id')[0].value        = data.id
-  $('#task-modal #task-name')[0].value      = data.name
-
-  # TODO deadlineのフォーマット
-  $('#task-modal #datetimepicker')[0].value = if data.deadline? then moment().format('YYYY/MM/DD hh:mm', data.deadline) else ''
-
+  $('#task-modal #task-id')[0].value        = data['task'].id
+  $('#task-modal #task-name')[0].value      = data['task'].name
+  $('#task-modal #datetimepicker')[0].value = if data['task'].deadline? then moment(data['task'].deadline).format('YYYY/MM/DD hh:mm') else ''
+  data['tag'].forEach (tag) ->
+    $("div#enable-tag-list input#tag-#{tag}").attr("checked", true)
+    $("div#enable-tag-list label[for='tag-#{tag}'] span").addClass('selected-tag label-success').removeClass('label-default')
   # execute update
-  $('form').attr('action','/tasks/' + data.id)
+  $('form').attr('action','/tasks/' + data['task'].id)
   $('form').attr('method','PUT')
 
 $('a[id^="edit-task-"]').on 'ajax:error', (xhr, data, status) ->
   modalError(data)
 
 $('a[id^="close-task-"]').on 'ajax:success', (xhr, data, status) ->
-  $("div.panel.panel-info#task-#{data.id}").remove()
+  $("div#task-#{data.id}").remove()
 
 $('a[id^="close-task-"]').on 'ajax:error', (xhr, data, status) ->
-  console.log 'close!!!'
-  console.log data
   $divAlert = $('<div id="close-task-errors" class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>')
-  $div  = $('<div></div>')
+  $div      = $('<div></div>')
   data.responseJSON.messages.forEach (message, i) ->
     $p = $('<p></p>').text(message)
     $div.append($p)
@@ -50,6 +48,19 @@ $('#create-new-task').on click:->
 $('a[id^="edit-task-"]').on click:->
   $('form').attr('path')
 
+$('#add-new-tag').on click:->
+  addNewTag()
+
+$('input#new-tag-text').on keypress: (e) ->
+  if !e
+    e = window.event
+  if e.keyCode == 13
+    addNewTag()
+    false
+
+$('span.task-tag').on click: ->
+  setSelectTagEvent($(this))
+
 modalError = (data)->
   form = $('#task-modal .modal-body')
   div  = $('<div id="create-task-errors" class="alert alert-danger"></div>')
@@ -67,3 +78,27 @@ initModal = ->
   $('#task-name')[0].value = ''
   $('#datetimepicker')[0].value = ''
   $('#create-task-errors').remove()
+  $('#new-tag-text')[0].value = ''
+  $('div#enable-tag-list input[id^="tag-"]:checked').attr("checked", false)
+  $('div#enable-tag-list span.selected-tag').addClass('label-default').removeClass('selected-tag label-success')
+
+addNewTag = ->
+  newTagName = $('input#new-tag-text').val()
+  $('input#new-tag-text').val('')
+
+  $input = $("<input id='tag-#{newTagName}' name='task[tag_list][]' style='display:none;' type='checkbox' value='#{newTagName}'>")
+  $label = $("<label for='tag-#{newTagName}'>")
+  $span  = $('<span class="label label-default fa pull-left task-tag" style="margin-bottom:5px;">')
+  $span.text("#{newTagName}").on click: ->
+    setSelectTagEvent($(this))
+
+  $label.append($span)
+  $('div#enable-tag-list').append($input).append($label)
+
+setSelectTagEvent = ($elem) ->
+  if $elem.hasClass('selected-tag')
+    $elem.addClass('label-default')
+    $elem.removeClass('selected-tag label-success')
+  else
+    $elem.addClass('selected-tag label-success')
+    $elem.removeClass('label-default')

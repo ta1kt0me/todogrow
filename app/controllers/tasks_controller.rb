@@ -1,12 +1,15 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.where(is_done: false, user_id: session[:user_id]).order(:deadline)
+    @tasks = Task.where(is_done: false, user: current_user).order(:deadline)
     @task = Task.new
+    @user_tags = current_user.owned_tag_list
   end
 
+  # TODO feature tag
   def closed_index
-    @tasks = Task.where(is_done: true, user_id: session[:user_id]).order('updated_at DESC')
+    @tasks = Task.where(is_done: true, user: current_user).order('updated_at DESC')
     @task = Task.new
+    @user_tags = current_user.owned_tag_list
   end
 
   def new
@@ -14,9 +17,10 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
-    @task.user_id = session[:user_id]
-    if @task.save
+    @task = current_user.tasks.build(task_params)
+    @task.user = current_user
+    if @task.save &&
+        current_user.tag(@task, with: @task.tag_list.join(', '), on: :tags)
       flash[:notice] = 'タスクを作成しました'
       head 201
     else
@@ -24,18 +28,21 @@ class TasksController < ApplicationController
     end
   end
 
+  # TODO feature tag
   def edit
     @task = Task.find(params[:id])
     if @task
-      render json: @task
+      render json: {task: @task, tag:@task.tag_list}
     else
       render json: {messages: @task.errors.full_messages}, status: 422
     end
   end
 
+  # TODO feature tag
   def update
     @task = Task.find(params[:id])
-    if @task.update(task_params)
+    if @task.update(task_params) &&
+        current_user.tag(@task, with: @task.tag_list.join(', '), on: :tags)
       flash[:notice] = 'タスクを更新しました'
       head 201
     else
@@ -55,7 +62,7 @@ class TasksController < ApplicationController
   private
   def task_params
     params.require(:task).permit(
-      :name, :deadline
+      :id, :name, :deadline, tag_list: []
     )
   end
 end
