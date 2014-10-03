@@ -1,11 +1,13 @@
 class TasksController < ApplicationController
   def index
     @tasks = Task.where(is_done: false, user: current_user).order(:deadline)
+    @tags = current_user.owned_tag_list
     @task = Task.new
   end
 
   def closed_index
     @tasks = Task.where(is_done: true, user: current_user).order('updated_at DESC')
+    @tags = current_user.owned_tag_list
     @task = Task.new
   end
 
