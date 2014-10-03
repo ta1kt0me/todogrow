@@ -50,6 +50,16 @@ $('#create-new-task').on click:->
 $('a[id^="edit-task-"]').on click:->
   $('form').attr('path')
 
+$('#add-new-tag').on click:->
+  addNewTag()
+
+$('input#new-tag-text').on keypress: (e) ->
+  if !e
+    e = window.event
+  if e.keyCode == 13
+    addNewTag()
+    false
+
 modalError = (data)->
   form = $('#task-modal .modal-body')
   div  = $('<div id="create-task-errors" class="alert alert-danger"></div>')
@@ -67,3 +77,11 @@ initModal = ->
   $('#task-name')[0].value = ''
   $('#datetimepicker')[0].value = ''
   $('#create-task-errors').remove()
+  $('#new-tag-text')[0].value = ''
+
+addNewTag = ->
+  newTag = $('input#new-tag-text').val()
+  $('input#new-tag-text').val('')
+  $li = $('<span class="label label-default fa pull-left" style="margin-bottom:5px;"></span>')
+  $li.text(newTag)
+  $('div#form-tags-list').append($li)
