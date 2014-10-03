@@ -15,9 +15,8 @@ $('a[id^="edit-task-"]').on 'ajax:success', (xhr, data, status) ->
   data['tag'].forEach (tag) ->
     $("div#enable-tag-list input#tag-#{tag}").attr("checked", true)
     $("div#enable-tag-list label[for='tag-#{tag}'] span").addClass('selected-tag label-success').removeClass('label-default')
-
   # execute update
-  $('form').attr('action','/tasks/' + data.id)
+  $('form').attr('action','/tasks/' + data['task'].id)
   $('form').attr('method','PUT')
 
 $('a[id^="edit-task-"]').on 'ajax:error', (xhr, data, status) ->
