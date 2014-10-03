@@ -9,11 +9,12 @@ $(document).on 'ajax:error', '#task-modal', (xhr, data, status) ->
 
 $('a[id^="edit-task-"]').on 'ajax:success', (xhr, data, status) ->
   initModal()
-  console.log data
   $('#task-modal #task-id')[0].value        = data['task'].id
   $('#task-modal #task-name')[0].value      = data['task'].name
-
   $('#task-modal #datetimepicker')[0].value = if data['task'].deadline? then moment(data['task'].deadline).format('YYYY/MM/DD hh:mm') else ''
+  data['tag'].forEach (tag, i) ->
+    $("div#enable-tag-list input#tag-#{tag}").attr("checked", true)
+    $("div#enable-tag-list label[for='tag-#{tag}'] span").addClass('selected-tag label-success').removeClass('label-default')
 
   # execute update
   $('form').attr('action','/tasks/' + data.id)
@@ -82,8 +83,6 @@ initModal = ->
   $('div#enable-tag-list input[id^="tag-"]:checked').attr("checked", false)
   $('div#enable-tag-list span.selected-tag').addClass('label-default').removeClass('selected-tag label-success')
 
-  # $('#task-have_tags')[0].value = new Array()
-
 addNewTag = ->
   newTagName = $('input#new-tag-text').val()
   $('input#new-tag-text').val('')
@@ -93,7 +92,6 @@ addNewTag = ->
   $span  = $('<span class="label label-default fa pull-left task-tag" style="margin-bottom:5px;">')
   $span.text("#{newTagName}").on click: ->
     setSelectTagEvent($(this))
-
 
   $label.append($span)
   $('div#enable-tag-list').append($input).append($label)
