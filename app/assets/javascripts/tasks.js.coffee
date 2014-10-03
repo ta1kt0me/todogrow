@@ -61,12 +61,7 @@ $('input#new-tag-text').on keypress: (e) ->
     false
 
 $('span.task-tag').on click: ->
-  if $(this).hasClass('selected-tag')
-    $(this).addClass('label-default')
-    $(this).removeClass('selected-tag label-success')
-  else
-    $(this).addClass('selected-tag label-success')
-    $(this).removeClass('label-default')
+  setSelectTagEvent($(this))
 
 modalError = (data)->
   form = $('#task-modal .modal-body')
@@ -92,4 +87,15 @@ addNewTag = ->
   $('input#new-tag-text').val('')
   $li = $('<span class="label label-default fa pull-left task-tag" style="margin-bottom:5px;"></span>')
   $li.text(newTag)
+  $li.on click: ->
+    setSelectTagEvent($(this))
   $('div#form-tags-list').append($li)
+
+
+setSelectTagEvent = ($elem) ->
+  if $elem.hasClass('selected-tag')
+    $elem.addClass('label-default')
+    $elem.removeClass('selected-tag label-success')
+  else
+    $elem.addClass('selected-tag label-success')
+    $elem.removeClass('label-default')
