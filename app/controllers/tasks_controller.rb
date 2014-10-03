@@ -32,7 +32,7 @@ class TasksController < ApplicationController
   def edit
     @task = Task.find(params[:id])
     if @task
-      render json: @task
+      render json: {task: @task, tag:@task.tag_list}
     else
       render json: {messages: @task.errors.full_messages}, status: 422
     end
