@@ -26,10 +26,8 @@ $('a[id^="close-task-"]').on 'ajax:success', (xhr, data, status) ->
   $("div#task-#{data.id}").remove()
 
 $('a[id^="close-task-"]').on 'ajax:error', (xhr, data, status) ->
-  console.log 'close!!!'
-  console.log data
   $divAlert = $('<div id="close-task-errors" class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>')
-  $div  = $('<div></div>')
+  $div      = $('<div></div>')
   data.responseJSON.messages.forEach (message, i) ->
     $p = $('<p></p>').text(message)
     $div.append($p)
@@ -81,16 +79,21 @@ initModal = ->
   $('#datetimepicker')[0].value = ''
   $('#create-task-errors').remove()
   $('#new-tag-text')[0].value = ''
+  $('#task-have_tags')[0].value = new Array()
 
 addNewTag = ->
-  newTag = $('input#new-tag-text').val()
+  newTagName = $('input#new-tag-text').val()
   $('input#new-tag-text').val('')
-  $li = $('<span class="label label-default fa pull-left task-tag" style="margin-bottom:5px;"></span>')
-  $li.text(newTag)
-  $li.on click: ->
-    setSelectTagEvent($(this))
-  $('div#form-tags-list').append($li)
 
+  $input = $("<input id='tag-#{newTagName}' name='task[tag_list][]' style='display:none;' type='checkbox' value='#{newTagName}'>")
+  $label = $("<label for='tag-#{newTagName}'>")
+  $span  = $('<span class="label label-default fa pull-left task-tag" style="margin-bottom:5px;">')
+  $span.text("#{newTagName}").on click: ->
+    setSelectTagEvent($(this))
+
+
+  $label.append($span)
+  $('div#enable-tag-list').append($input).append($label)
 
 setSelectTagEvent = ($elem) ->
   if $elem.hasClass('selected-tag')
