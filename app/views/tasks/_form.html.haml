@@ -33,3 +33,18 @@
                       = "#{tag}"
         %div.modal-footer
           = t.submit nil, class: 'btn btn-lg btn-block btn-primary'
+
+- content_for :page_javascript do
+  :javascript
+    $(function () {
+      $('#datetimepicker').datetimepicker({
+                icons: {
+                    format: 'yyyy-mm-dd hh:ii',
+                    language: 'ja',
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-arrow-up",
+                    down: "fa fa-arrow-down"
+                }
+            });
+    });
