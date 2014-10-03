@@ -12,7 +12,7 @@ $('a[id^="edit-task-"]').on 'ajax:success', (xhr, data, status) ->
   $('#task-modal #task-id')[0].value        = data['task'].id
   $('#task-modal #task-name')[0].value      = data['task'].name
   $('#task-modal #datetimepicker')[0].value = if data['task'].deadline? then moment(data['task'].deadline).format('YYYY/MM/DD hh:mm') else ''
-  data['tag'].forEach (tag, i) ->
+  data['tag'].forEach (tag) ->
     $("div#enable-tag-list input#tag-#{tag}").attr("checked", true)
     $("div#enable-tag-list label[for='tag-#{tag}'] span").addClass('selected-tag label-success').removeClass('label-default')
 
