@@ -13,7 +13,7 @@
         %h3.panel-title
           %span.task-list-name
             = task.name
-          = link_to '', create_google_calendar_link(task), id: "add-calendar-#{task.id}", class: 'pull-right fa fa-calendar', title: 'Googleカレンダーに追加'
+          = link_to '', create_google_calendar_link(task), id: "add-calendar-#{task.id}", class: 'pull-right fa fa-calendar', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', 'data-original-title' => 'Googleカレンダーに追加', title: '', rel: 'tooltip'
           = link_to '', edit_task_path(task.id), id: "edit-task-#{task.id}", class: 'pull-right fa fa-pencil-square-o', 'data-toggle' => 'modal', 'data-target' => '#task-modal', remote: true, title: '編集'
       %div.panel-body
         %ul
