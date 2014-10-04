@@ -1,10 +1,12 @@
 class TasksController < ApplicationController
-  before_action :authenticate
+  before_action :authenticate, except: :index
 
   def index
-    @tasks = Task.where(is_done: false, user: current_user).order(:deadline)
-    @task = Task.new
-    @user_tags = current_user.owned_tag_list
+    if logged_in?
+      @tasks = Task.where(is_done: false, user: current_user).order(:deadline)
+      @task = Task.new
+      @user_tags = current_user.owned_tag_list
+    end
   end
 
   # TODO feature tag
