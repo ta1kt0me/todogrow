@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  before_action :authenticate
+
   def index
     @tasks = Task.where(is_done: false, user: current_user).order(:deadline)
     @task = Task.new
