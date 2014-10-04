@@ -53,3 +53,6 @@ gem 'bower-rails', '~> 0.9'
 gem 'omniauth', '~> 1.2'
 gem 'omniauth-twitter', '~> 1.0'
 gem 'acts-as-taggable-on', '~> 3.4'
+
+gem 'foreman', '~> 0.75'
+gem 'unicorn', '~> 4.8.3'
