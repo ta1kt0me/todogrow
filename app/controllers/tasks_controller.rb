@@ -1,8 +1,10 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.where(is_done: false, user: current_user).order(:deadline)
-    @task = Task.new
-    @user_tags = current_user.owned_tag_list
+    if current_user
+      @tasks = Task.where(is_done: false, user: current_user).order(:deadline)
+      @task = Task.new
+      @user_tags = current_user.owned_tag_list
+    end
   end
 
   # TODO feature tag
