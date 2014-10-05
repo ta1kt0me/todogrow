@@ -1,10 +1,11 @@
 source 'https://rubygems.org'
 
+ruby '2.1.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.6'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+gem 'sqlite3', group: :development
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -53,3 +54,10 @@ gem 'bower-rails', '~> 0.9'
 gem 'omniauth', '~> 1.2'
 gem 'omniauth-twitter', '~> 1.0'
 gem 'acts-as-taggable-on', '~> 3.4'
+
+gem 'foreman', '~> 0.75'
+gem 'unicorn', '~> 4.8.3'
+
+gem 'pg', group: :production
+gem 'rails_12factor', group: :production
+gem 'heroku_secrets', github: 'alexpeattie/heroku_secrets'
