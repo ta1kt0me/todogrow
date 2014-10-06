@@ -1,5 +1,7 @@
 # TodoGrow
 
+http://todogrow.herokuapp.com/
+
 ## Discription
 
 TodoGrow is task management rails application.
@@ -8,6 +10,7 @@ TodoGrow is task management rails application.
 
 * Add Task
   * name
-  * startline
   * deadline
-  * label
+  * tag
+
+* Add Google Calendar
