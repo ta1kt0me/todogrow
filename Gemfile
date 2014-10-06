@@ -49,7 +49,6 @@ gem 'bootstrap-sass', '~> 3.2.0'
 gem 'bootswatch-rails', '~> 3.2'
 gem 'font-awesome-rails', '~> 4.2'
 gem 'twitter-bootswatch-rails-helpers', '~> 3.2'
-gem 'bower-rails', '~> 0.9'
 
 gem 'omniauth', '~> 1.2'
 gem 'omniauth-twitter', '~> 1.0'
