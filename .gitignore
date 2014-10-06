@@ -17,4 +17,4 @@
 /tmp
 
 /config/database.yml
-#/vendor/assets/components
+/vendor/assets/components
