@@ -60,3 +60,7 @@ gem 'unicorn', '~> 4.8.3'
 gem 'pg', group: :production
 gem 'rails_12factor', group: :production
 gem 'heroku_secrets', github: 'alexpeattie/heroku_secrets'
+
+gem 'rspec-rails', '~> 3.0.0', group: :test
+gem 'shoulda-matchers', '~> 2.6.0', group: :test
+gem 'factory_girl_rails', '~> 4.4.1', group: [:development, :test]
