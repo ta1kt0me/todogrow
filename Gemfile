@@ -64,3 +64,4 @@ gem 'heroku_secrets', github: 'alexpeattie/heroku_secrets'
 gem 'rspec-rails', '~> 3.0.0', group: :test
 gem 'shoulda-matchers', '~> 2.6.0', group: :test
 gem 'factory_girl_rails', '~> 4.4.1', group: [:development, :test]
+gem 'rails-erd', github: 'paulwittmann/rails-erd', branch: 'mavericks', group: [:development, :test]
