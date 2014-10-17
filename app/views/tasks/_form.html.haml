@@ -32,7 +32,7 @@
                     %span.label.label-default.fa.pull-left.task-tag{style: 'margin-bottom:5px;'}
                       = "#{tag}"
         %div.modal-footer
-          = t.submit nil, class: 'btn btn-lg btn-block btn-primary'
+          = t.submit nil, class: 'btn btn-lg btn-block btn-primary', disable_with: 'in progress...'
 
 - content_for :page_javascript do
   :javascript
