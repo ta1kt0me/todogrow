@@ -60,3 +60,5 @@ gem 'unicorn', '~> 4.8.3'
 gem 'pg', group: :production
 gem 'rails_12factor', group: :production
 gem 'heroku_secrets', github: 'alexpeattie/heroku_secrets'
+gem 'newrelic_rpm'
+
