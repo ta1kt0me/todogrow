@@ -9,13 +9,13 @@
 
 %div.list-group
   - @tasks.each do |task|
-    %div.list-group-item
+    %div.list-group-item{id: "task-#{task.id}"}
       %span.list-group-item-heading.lead
         = task.name
+      = link_to 'OPEN', reopen_task_path(task.id), id: "reopen-task-#{task.id}", class: 'pull-right btn btn-danger btn-sm', method:'POST', remote: true, title: 'OPEN'
       %p.list-group-item-text
         = task.updated_at.strftime("%Y/%m/%d-%H:%M")
         done.
-
 = render partial: "form", locals: {zone: @zone}
 
 - content_for :page_javascript do

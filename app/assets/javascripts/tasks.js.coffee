@@ -25,7 +25,8 @@ $('a[id^="edit-task-"]').on 'ajax:error', (xhr, data, status) ->
   modalError(data)
 
 $('a[id^="close-task-"]').on 'ajax:success', (xhr, data, status) ->
-  $("div#task-#{data.id}").remove()
+  $("div#task-#{data.id}").fadeOut 250, ->
+    @remove
 
 $('a[id^="close-task-"]').on 'ajax:error', (xhr, data, status) ->
   $divAlert = $('<div id="close-task-errors" class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>')
@@ -39,6 +40,24 @@ $('a[id^="close-task-"]').on 'ajax:error', (xhr, data, status) ->
   else
     $divAlert.append($div)
     $('div#main-content').prepend($divAlert)
+
+$('a[id^="reopen-task-"]').on 'ajax:success', (xhr, data, status) ->
+  $("div#task-#{data.id}").fadeOut 250, ->
+    @remove
+
+$('a[id^="reopen-task-"]').on 'ajax:error', (xhr, data, status) ->
+  $divAlert = $('<div id="reopen-task-errors" class="alert alert-danger"><button type="button" class="reopen" data-dismiss="alert" aria-hidden="true">&times;</button></div>')
+  $div      = $('<div></div>')
+  data.responseJSON.messages.forEach (message, i) ->
+    $p = $('<p></p>').text(message)
+    $div.append($p)
+
+  if $('#reopen-task-errors')[0]
+    $('#reopen-task-errors').html(ul)
+  else
+    $divAlert.append($div)
+    $('div#main-content').prepend($divAlert)
+
 
 $('#create-new-task').on click:->
   initModal()
