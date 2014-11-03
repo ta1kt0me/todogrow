@@ -61,6 +61,15 @@ class TasksController < ApplicationController
     end
   end
 
+  def reopen
+    @task = Task.find(params[:id])
+    if @task.update(is_done: false)
+      render json: @task
+    else
+      render json: {messages: @task.errors.full_message}, status:422
+    end
+  end
+
   private
   def task_params
     params.require(:task).permit(
