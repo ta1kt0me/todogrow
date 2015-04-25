@@ -25,8 +25,9 @@
           %ul.nav.navbar-nav
             %li
               = link_to 'My Task', tasks_path
-            %li
-              = link_to 'Archive', closed_tasks_path
+            - if current_user
+              %li
+                = link_to 'Archive', closed_tasks_path
           %ul.nav.navbar-nav.navbar-right
             %li
               - if current_user
