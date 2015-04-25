@@ -63,3 +63,4 @@ gem 'heroku_secrets', github: 'alexpeattie/heroku_secrets'
 gem 'newrelic_rpm'
 
 gem 'rubocop'
+gem 'rails_best_practices'

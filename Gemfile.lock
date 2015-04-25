@@ -44,6 +44,8 @@ GEM
     bootswatch-rails (3.2.4)
       railties (>= 3.1)
     builder (3.2.2)
+    code_analyzer (0.4.5)
+      sexp_processor
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -51,6 +53,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.8.0)
+    colored (1.2)
     commonjs (0.2.7)
     dotenv (0.11.1)
       dotenv-deployment (~> 0.0.2)
@@ -132,6 +135,15 @@ GEM
     rails_12factor (0.0.3)
       rails_serve_static_assets
       rails_stdout_logging
+    rails_best_practices (1.15.7)
+      activesupport
+      code_analyzer (>= 0.4.3)
+      colored
+      erubis
+      i18n
+      json
+      require_all
+      ruby-progressbar
     rails_serve_static_assets (0.0.2)
     rails_stdout_logging (0.0.3)
     railties (4.1.6)
@@ -145,6 +157,7 @@ GEM
     rdoc (4.1.2)
       json (~> 1.4)
     ref (1.0.5)
+    require_all (1.3.2)
     rubocop (0.30.1)
       astrolabe (~> 1.3)
       parser (>= 2.2.2.1, < 3.0)
@@ -226,6 +239,7 @@ DEPENDENCIES
   pg
   rails (= 4.1.6)
   rails_12factor
+  rails_best_practices
   rubocop
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
