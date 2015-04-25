@@ -64,3 +64,4 @@ gem 'newrelic_rpm'
 
 gem 'rubocop'
 gem 'rails_best_practices'
+gem 'brakeman'
