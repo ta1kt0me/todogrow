@@ -14,10 +14,6 @@ class TasksController < ApplicationController
     @user_tags = current_user.owned_tag_list
   end
 
-  def new
-    @task = Task.new
-  end
-
   def create
     @task = current_user.tasks.build(task_params)
     @task.user = current_user
