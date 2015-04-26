@@ -1,37 +1,37 @@
-%div.modal#task-modal
-  %div.modal-dialog
-    %div.modal-content
-      %div.modal-header
+#task-modal.modal
+  .modal-dialog
+    .modal-content
+      .modal-header
         %button.close{type:'button', data: {dismiss: 'modal'}, 'aria-hidden' => true}
           &times;
         %h4.modal-title
           Task
       = form_for(@task, remote: true, id: 'task-form') do |t|
-        %div.modal-body
-          %div.form-group.required
+        .modal-body
+          .form-group.required
             = t.label :name, class: 'control-label'
             %span.control-label
               ( required )
             = t.text_field :name, class: 'form-control', id: 'task-name'
-          %div.form-group
+          .form-group
             = t.label :deadline, class: 'control-label'
             = t.text_field :deadline, id: 'datetimepicker', class: 'form-control', autocomplete: 'off', 'data-date-format' => "YYYY/MM/DD HH:mm"
             = t.hidden_field :id, id: 'task-id'
-          %div.panel.panel-success.form-group
-            %div.panel-heading
+          .panel.panel-success.form-group
+            .panel-heading
               = t.label :tag, class: 'control-label'
-            %div.panel-body#form-tags-list
+            #form-tags-list.panel-body
               %div{style: 'margin-bottom: 10px;'}
                 %input.form-control{id: 'new-tag-text',type: 'text', name:'new-tag', style: 'width:50%;display:inline;'}
                 %button.btn.btn-default{id: 'add-new-tag',type: 'button', data: {container: 'body', toggle: 'popover',placement: 'button'}}
                   +
-              %div#enable-tag-list
+              #enable-tag-list
                 - @user_tags.each do |tag|
                   %input{id:"tag-#{tag}" ,name:'task[tag_list][]', type:'checkbox',value:"#{tag}", style:"display:none;"}
                   %label{for:"tag-#{tag}"}
                     %span.label.label-default.fa.pull-left.task-tag{style: 'margin-bottom:5px;'}
                       = "#{tag}"
-        %div.modal-footer
+        .modal-footer
           = t.submit nil, class: 'btn btn-lg btn-block btn-primary', data: {disable_with: 'in progress...'}
 
 - content_for :page_javascript do

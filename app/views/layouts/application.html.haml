@@ -14,14 +14,14 @@
 
   %body
     %header.navbar.navbar-default{role: "navigation"}
-      %div.container
-        %div.navbar-header
+      .container
+        .navbar-header
           %button.navbar-toggle{data: {toggle: 'collapse', target:'.navbar-responsive-collapse'}}
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
           = link_to 'TodoGrow', root_path, class: 'navbar-brand'
-        %div.navbar-collapse.collapse.navbar-responsive-collapse
+        .navbar-collapse.collapse.navbar-responsive-collapse
           %ul.nav.navbar-nav
             %li
               = link_to 'My Task', tasks_path
@@ -34,13 +34,13 @@
               - else
                 = link_to 'Sign in/Sign up for Twitter', '/auth/twitter'
 
-    %div.container#main-content
+    .container#main-content
       - if flash[:notice]
-        %div.alert.alert-success
+        .alert.alert-success
           - alert_close_icon
           = flash[:notice]
       - if flash[:error]
-        %div.alert.alert-danger
+        .alert.alert-danger
           - alert_close_icon
           = flash[:error]
       - if current_user

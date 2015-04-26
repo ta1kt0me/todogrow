@@ -1,5 +1,5 @@
 - if current_user
-  %div.page-header
+  .page-header
     %h1
       My Task
   %div
@@ -7,16 +7,16 @@
       Create New Task
   %hr
 
-  %div.list-group
+  .list-group
     - @tasks.each do |task|
-      %div.panel{id: "task-#{task.id}", class: panel_class_status(task)}
-        %div.panel-heading
+      .panel{id: "task-#{task.id}", class: panel_class_status(task)}
+        .panel-heading
           %h3.panel-title
             %span.task-list-name
               = task.name
             = link_to '', create_google_calendar_link(task), id: "add-calendar-#{task.id}", class: 'pull-right fa fa-calendar', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', 'data-original-title' => 'Googleカレンダーに追加', title: '', rel: 'tooltip'
             = link_to '', edit_task_path(task.id), id: "edit-task-#{task.id}", class: 'pull-right fa fa-pencil-square-o', 'data-toggle' => 'modal', 'data-target' => '#task-modal', remote: true, title: '編集'
-        %div.panel-body
+        .panel-body
           %ul
             %li
               limit

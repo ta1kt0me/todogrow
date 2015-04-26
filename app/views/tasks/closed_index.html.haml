@@ -1,4 +1,4 @@
-%div.page-header
+.page-header
   %h1
     Archive
 %div
@@ -7,9 +7,9 @@
     Create New Task
 %hr
 
-%div.list-group
+.list-group
   - @tasks.each do |task|
-    %div.list-group-item{id: "task-#{task.id}"}
+    .list-group-item{id: "task-#{task.id}"}
       %span.list-group-item-heading.lead
         = task.name
       = link_to 'OPEN', reopen_task_path(task.id), id: "reopen-task-#{task.id}", class: 'pull-right btn btn-danger btn-sm', method:'POST', remote: true, title: 'OPEN'
