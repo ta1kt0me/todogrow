@@ -14,7 +14,7 @@
         = task.name
       = link_to 'OPEN', reopen_task_path(task.id), id: "reopen-task-#{task.id}", class: 'pull-right btn btn-danger btn-sm', method:'POST', remote: true, title: 'OPEN'
       %p.list-group-item-text
-        = task.updated_at.strftime("%Y/%m/%d-%H:%M")
+        = l task.updated_at, format: '%Y/%m/%d-%H:%M'
         done.
 = render partial: "form", locals: {zone: @zone}
 

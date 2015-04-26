@@ -23,7 +23,7 @@
               %ul
                 %li.task-list-deadline
                   - if task.deadline
-                    = task.deadline.strftime("%Y/%m/%d %H:%M")
+                    = l task.deadline, format: '%Y/%m/%d-%H:%M'
                   - else
                     no limit
           = link_to 'Done', close_task_path(task), id: "close-task-#{task.id}",class: 'btn btn-default btn-md btn-block', method: 'POST', remote: true
