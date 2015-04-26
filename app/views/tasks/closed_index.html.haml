@@ -16,7 +16,7 @@
       %p.list-group-item-text
         = task.updated_at.strftime("%Y/%m/%d-%H:%M")
         done.
-= render partial: "form", locals: {zone: @zone}
+= render partial: "form"
 
 - content_for :page_javascript do
   :javascript

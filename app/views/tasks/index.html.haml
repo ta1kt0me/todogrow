@@ -28,4 +28,4 @@
                     no limit
           = link_to 'Done', close_task_path(task), id: "close-task-#{task.id}",class: 'btn btn-default btn-md btn-block', method: 'POST', remote: true
 
-  = render partial: "form", locals: {zone: @zone}
+  = render partial: "form"
