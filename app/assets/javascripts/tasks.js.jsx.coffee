@@ -7,26 +7,10 @@ $(document).on 'ajax:success', '#task-modal', (xhr, data, status) ->
 $(document).on 'ajax:error', '#task-modal', (xhr, data, status) ->
   modalError(data)
 
-$("[rel=tooltip]").tooltip();
-
-$('a[id^="edit-task-"]').on 'ajax:success', (xhr, data, status) ->
-  initModal()
-  $('#task-modal #task-id')[0].value        = data['task'].id
-  $('#task-modal #task-name')[0].value      = data['task'].name
-  $('#task-modal #datetimepicker')[0].value = if data['task'].deadline? then moment(data['task'].deadline).format('YYYY/MM/DD hh:mm') else ''
-  data['tag'].forEach (tag) ->
-    $("div#enable-tag-list input#tag-#{tag}").attr("checked", true)
-    $("div#enable-tag-list label[for='tag-#{tag}'] span").addClass('selected-tag label-success').removeClass('label-default')
-  # execute update
-  $('form').attr('action','/tasks/' + data['task'].id)
-  $('form').attr('method','PUT')
+$("[rel=tooltip]").tooltip()
 
 $('a[id^="edit-task-"]').on 'ajax:error', (xhr, data, status) ->
   modalError(data)
-
-$('a[id^="close-task-"]').on 'ajax:success', (xhr, data, status) ->
-  $("div#task-#{data.id}").fadeOut 250, ->
-    @remove
 
 $('a[id^="close-task-"]').on 'ajax:error', (xhr, data, status) ->
   $divAlert = $('<div id="close-task-errors" class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>')
@@ -57,7 +41,6 @@ $('a[id^="reopen-task-"]').on 'ajax:error', (xhr, data, status) ->
   else
     $divAlert.append($div)
     $('div#main-content').prepend($divAlert)
-
 
 $('#create-new-task').on click:->
   initModal()
@@ -124,7 +107,6 @@ setSelectTagEvent = ($elem) ->
     $elem.addClass('selected-tag label-success')
     $elem.removeClass('label-default')
 
-
 @PageTitle = React.createClass
   render: ->
     `<div className="page-header">
@@ -132,3 +114,74 @@ setSelectTagEvent = ($elem) ->
         { this.props.title }
       </h1>
     </div>`
+
+@TaskBody = React.createClass
+  render: ->
+    taskId = @props.task.id
+    taskLimit = @props.task.deadline
+    taskLimit = 'no limit' unless taskLimit?
+    `<div className="panel-body">
+      <ul>
+        <li>
+          limit
+          <ul>
+            <li className="task-list-deadline">
+              { taskLimit }
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <a id={'class-task-'+ taskId}  className="btn btn-default btn-md btn-block" data-method="POST" data-remote="true" ref="nofollow" href={'/tasks/' + taskId + '/close'}>Done</a>
+    </div>
+    `
+
+@TaskCard = React.createClass
+  render: ->
+    `<div className={"panel " + this.props.status} id={ "task-" + this.props.task.id }>
+      <div className="panel-heading">
+        <h3 className="panel-title">
+          <span className="task-list-name">
+            { this.props.task.name }
+          </span>
+          <a className="pull-right fa fa-calendar" data-original-title="Googleカレンダーに追加" data-placement="bottom" data-toggle="tooltip" href={ this.props.cal_url } id={ "add-calendar-" + this.props.task.id } rel="tooltip" title=""></a>
+          <a className="pull-right fa fa-pencil-square-o" data-remote="true" data-target="#task-modal" data-toggle="modal" href={ this.props.edit_url } id={ "edit-task-" + this.props.task.id } title="編集"></a>
+        </h3>
+      </div>
+      <TaskBody task={ this.props.task } />
+    </div>
+    `
+
+@TaskList = React.createClass
+  render: ->
+
+$('a[id^="edit-task-"]').on 'ajax:success', (xhr, data, status) ->
+  initModal()
+  $('#task-modal #task-id')[0].value        = data['task'].id
+  $('#task-modal #task-name')[0].value      = data['task'].name
+  $('#task-modal #datetimepicker')[0].value = if data['task'].deadline? then moment(data['task'].deadline).format('YYYY/MM/DD hh:mm') else ''
+  data['tag'].forEach (tag) ->
+    $("div#enable-tag-list input#tag-#{tag}").attr("checked", true)
+    $("div#enable-tag-list label[for='tag-#{tag}'] span").addClass('selected-tag label-success').removeClass('label-default')
+  # execute update
+  $('form').attr('action','/tasks/' + data['task'].id)
+  $('form').attr('method','PUT')
+
+$('a[id^="edit-task-"]').on 'ajax:error', (xhr, data, status) ->
+  modalError(data)
+
+$('a[id^="close-task-"]').on 'ajax:success', (xhr, data, status) ->
+  $("div#task-#{data.id}").fadeOut 250, ->
+    @remove
+
+$('a[id^="close-task-"]').on 'ajax:error', (xhr, data, status) ->
+  $divAlert = $('<div id="close-task-errors" class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>')
+  $div      = $('<div></div>')
+  data.responseJSON.messages.forEach (message, i) ->
+    $p = $('<p></p>').text(message)
+    $div.append($p)
+
+  if $('#close-task-errors')[0]
+    $('#close-task-errors').html(ul)
+  else
+    $divAlert.append($div)
+    $('div#main-content').prepend($divAlert)

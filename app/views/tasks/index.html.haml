@@ -7,23 +7,9 @@
 
   %div.list-group
     - @tasks.each do |task|
-      %div.panel{id: "task-#{task.id}", class: panel_class_status(task)}
-        %div.panel-heading
-          %h3.panel-title
-            %span.task-list-name
-              = task.name
-            = link_to '', create_google_calendar_link(task), id: "add-calendar-#{task.id}", class: 'pull-right fa fa-calendar', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', 'data-original-title' => 'Googleカレンダーに追加', title: '', rel: 'tooltip'
-            = link_to '', edit_task_path(task.id), id: "edit-task-#{task.id}", class: 'pull-right fa fa-pencil-square-o', 'data-toggle' => 'modal', 'data-target' => '#task-modal', remote: true, title: '編集'
-        %div.panel-body
-          %ul
-            %li
-              limit
-              %ul
-                %li.task-list-deadline
-                  - if task.deadline
-                    = task.deadline.strftime("%Y/%m/%d %H:%M")
-                  - else
-                    no limit
-          = link_to 'Done', close_task_path(task), id: "close-task-#{task.id}",class: 'btn btn-default btn-md btn-block', method: 'POST', remote: true
+      = react_component('TaskCard', props={task: task,
+        status: panel_class_status(task),
+        cal_url: create_google_calendar_link(task),
+        edit_url: edit_task_path(task.id)})
 
   = render partial: "form", locals: {zone: @zone}
