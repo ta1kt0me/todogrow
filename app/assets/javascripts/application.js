@@ -15,5 +15,7 @@
 //= require bootstrap
 //= require moment/moment
 //= require bootstrap3-datetimepicker/src/js/bootstrap-datetimepicker
+//= require react
+//= require react_ujs
 //= require_tree .
 //= require turbolinks

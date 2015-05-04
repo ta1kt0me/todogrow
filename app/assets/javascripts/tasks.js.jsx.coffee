@@ -123,3 +123,12 @@ setSelectTagEvent = ($elem) ->
   else
     $elem.addClass('selected-tag label-success')
     $elem.removeClass('label-default')
+
+
+@PageTitle = React.createClass
+  render: ->
+    `<div className="page-header">
+      <h1>
+        { this.props.title }
+      </h1>
+    </div>`

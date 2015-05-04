@@ -1,7 +1,5 @@
 - if current_user
-  %div.page-header
-    %h1
-      My Task
+  = react_component('PageTitle', props={title: 'My Task'},)
   %div
     %button#create-new-task.btn.btn-default.btn-lg.btn-block{data: {toggle: 'modal', target: '#task-modal'}}
       Create New Task
